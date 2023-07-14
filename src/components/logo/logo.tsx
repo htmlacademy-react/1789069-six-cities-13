@@ -1,4 +1,9 @@
-import { Link }from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+/* type LogoProps = {
+  additionalClassName?: string;
+  isActive?: boolean;
+}; */
 
 function Logo(): JSX.Element {
   return (

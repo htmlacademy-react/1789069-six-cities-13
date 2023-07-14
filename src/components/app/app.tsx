@@ -5,7 +5,7 @@ import { MainPage } from '../../pages/main';
 import { LoginPage } from '../../pages/login';
 import { FavoritesPage } from '../../pages/favorites';
 import { OfferPage } from '../../pages/offer';
-import { NotFoundPage } from '../../pages/not-found';
+import { Page404 } from '../../pages/404';
 import { PrivateRoute } from '../private-route';
 
 function App(): JSX.Element {
@@ -35,7 +35,7 @@ function App(): JSX.Element {
           />
           <Route
             path="*"
-            element={<NotFoundPage />}
+            element={<Page404 />}
           />
         </Routes>
       </BrowserRouter>
