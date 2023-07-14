@@ -1,3 +1,6 @@
+import { Logo } from '../../components/logo';
+import { Helmet } from 'react-helmet-async';
+
 function FavoritesPage(): JSX.Element {
   return (
     <div className="page">
@@ -5,9 +8,7 @@ function FavoritesPage(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
-              </a>
+              <Logo />
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -33,6 +34,9 @@ function FavoritesPage(): JSX.Element {
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
+            <Helmet>
+              <title>6 cities. Beautiful &amp; luxurious studio at great location</title>
+            </Helmet>
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
               <li className="favorites__locations-items">
