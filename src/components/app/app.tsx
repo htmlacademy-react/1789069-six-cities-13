@@ -7,15 +7,22 @@ import { FavoritesPage } from '../../pages/favorites';
 import { OfferPage } from '../../pages/offer';
 import { Page404 } from '../../pages/404';
 import { PrivateRoute } from '../private-route';
+import { Offers } from '../../types/offer';
+import { ScrollTop } from '../scroll-top';
 
-function App(): JSX.Element {
+type AppProps = {
+  offers: Offers;
+}
+
+function App({offers}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
+        <ScrollTop />
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainPage />}
+            element={<MainPage offers={offers}/>}
           />
           <Route
             path={AppRoute.Login}
@@ -24,14 +31,14 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-                <FavoritesPage />
+              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+                <FavoritesPage offers={offers}/>
               </PrivateRoute>
             }
           />
           <Route
             path={AppRoute.Offer}
-            element={<OfferPage />}
+            element={<OfferPage offers={offers}/>}
           />
           <Route
             path="*"
