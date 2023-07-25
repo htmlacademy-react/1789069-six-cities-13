@@ -3,6 +3,7 @@ import { Logo } from '../../components/logo';
 import { Helmet } from 'react-helmet-async';
 import { OffersList } from '../../components/offers-list';
 import { Offers } from '../../types/offer';
+import { AppRoute } from '../../settings';
 
 type MainPageProps = {
   offers: Offers;
@@ -22,7 +23,7 @@ function MainPage({ offers }: MainPageProps) : JSX.Element {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to='/favorites'>
+                  <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
@@ -101,9 +102,9 @@ function MainPage({ offers }: MainPageProps) : JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              {offers.length ? (
-                <OffersList offers={offers} isFavorites={false} isOther={false}/>
-              ) : ''}
+              {(offers.length > 0) && (
+                <OffersList offers={offers} isFavoritesLayout={false} isOfferLayout={false}/>
+              )}
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

@@ -3,32 +3,29 @@ import { PlaceCard } from '../place-card';
 
 type OffersListProps = {
   offers: Offers;
-  isFavorites: boolean;
-  isOther: boolean;
+  isFavoritesLayout: boolean;
+  isOfferLayout: boolean;
 }
 
-function OffersList({offers, isFavorites, isOther}: OffersListProps): JSX.Element {
-  if (isFavorites) {
-    return (
-      <div className="favorites__places">
-        {offers.map((offer) => (
-          <PlaceCard key={offer.id} offer={offer} isFavorite={isFavorites} isOther={isOther}/>
-        ))}
-      </div>
-    );
-  } else if (isOther) {
-    return (
-      <div className="near-places__list places__list">
-        {offers.map((offer) => (
-          <PlaceCard key={offer.id} offer={offer} isFavorite={isFavorites} isOther={isOther}/>
-        ))}
-      </div>
-    );
+function OffersList({offers, isFavoritesLayout, isOfferLayout}: OffersListProps): JSX.Element {
+  let className = '';
+
+  switch(true) {
+    case isFavoritesLayout:
+      className = 'favorites__places';
+      break;
+    case isOfferLayout:
+      className = 'near-places__list places__list';
+      break;
+    default:
+      className = 'cities__places-list places__list tabs__content';
+      break;
   }
+
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <div className={className}>
       {offers.map((offer) => (
-        <PlaceCard key={offer.id} offer={offer} isFavorite={isFavorites} isOther={isOther}/>
+        <PlaceCard key={offer.id} offer={offer} isFavoritesLayout={isFavoritesLayout} isOfferLayout={isOfferLayout}/>
       ))}
     </div>
   );

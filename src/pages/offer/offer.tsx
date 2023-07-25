@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import { CommentForm } from '../../components/comment-form';
 import { Offers } from '../../types/offer';
 import { OffersList } from '../../components/offers-list';
+import { AppRoute } from '../../settings';
 
 type OfferPageProps = {
   offers: Offers;
@@ -16,6 +17,8 @@ function OfferPage({offers}: OfferPageProps): JSX.Element {
 
   const currentOffer = offers.find((offer) => offer.id === offerId);
   const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
+
+  const bookmarkClass = 'offer__bookmark-button';
 
   if (typeof currentOffer !== 'undefined') {
     return (
@@ -32,7 +35,7 @@ function OfferPage({offers}: OfferPageProps): JSX.Element {
               <nav className="header__nav">
                 <ul className="header__nav-list">
                   <li className="header__nav-item user">
-                    <Link className="header__nav-link header__nav-link--profile" to='/favorites'>
+                    <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                       </div>
                       <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
@@ -53,7 +56,7 @@ function OfferPage({offers}: OfferPageProps): JSX.Element {
         <main className="page__main page__main--offer">
           <section className="offer">
             <div className="offer__gallery-container container">
-              {currentOffer.images.length ? (
+              {(currentOffer.images.length > 0) && (
                 <div className="offer__gallery">
                   {currentOffer.images.map((image) => (
                     <div key={image} className="offer__image-wrapper">
@@ -61,20 +64,20 @@ function OfferPage({offers}: OfferPageProps): JSX.Element {
                     </div>
                   ))}
                 </div>
-              ) : '' }
+              )}
             </div>
             <div className="offer__container container">
               <div className="offer__wrapper">
-                {currentOffer.isPremium ? (
+                {currentOffer.isPremium && (
                   <div className="offer__mark">
                     <span>Premium</span>
                   </div>
-                ) : ''}
+                )}
                 <div className="offer__name-wrapper">
                   <h1 className="offer__name">
                     {currentOffer.title}
                   </h1>
-                  <button className={`offer__bookmark-button button ${currentOffer.isFavorite ? 'offer__bookmark-button--active' : ''}` } type="button">
+                  <button className={`button ${bookmarkClass} ${currentOffer.isFavorite ? bookmarkClass.concat('--active') : ''}`} type="button">
                     <svg className="offer__bookmark-icon" width={31} height={33}>
                       <use xlinkHref="#icon-bookmark"></use>
                     </svg>
@@ -166,7 +169,7 @@ function OfferPage({offers}: OfferPageProps): JSX.Element {
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <OffersList offers={offers.filter((offer) => offer.id !== currentOffer.id && offer.city.name === currentOffer.city.name)} isFavorites={false} isOther />
+              <OffersList offers={offers.filter((offer) => offer.id !== currentOffer.id && offer.city.name === currentOffer.city.name)} isFavoritesLayout={false} isOfferLayout />
             </section>
           </div>
         </main>

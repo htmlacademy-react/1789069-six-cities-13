@@ -1,26 +1,18 @@
 import { Link } from 'react-router-dom';
 import { Logo } from '../../components/logo';
 import { Helmet } from 'react-helmet-async';
-import { Offers, Offer } from '../../types/offer';
+import { Offers } from '../../types/offer';
 import { OffersList } from '../../components/offers-list';
+import { AppRoute } from '../../settings';
 
 type FavoritesProps = {
   offers: Offers;
 }
 
 function FavoritesPage({offers}: FavoritesProps): JSX.Element {
-  const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
-  const offerCity: {
-    [propertyName: string]: Offer[];
-  } = {};
-
-  offers.forEach((offer) => {
-    if (offer.city.name in offerCity) {
-      offerCity[offer.city.name].push(offer);
-    } else {
-      offerCity[offer.city.name] = [offer];
-    }
-  });
+  const favoriteOffer = offers.filter((offer) => offer.isFavorite);
+  const cities = favoriteOffer.map((offer) => (offer.city.name));
+  const citiesWithoutReplay = [...new Set(cities)];
 
   return (
     <div className="page">
@@ -33,11 +25,11 @@ function FavoritesPage({offers}: FavoritesProps): JSX.Element {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to='/favorites'>
+                  <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">{favoritesCount}</span>
+                    <span className="header__favorite-count">{favoriteOffer.length}</span>
                   </Link>
                 </li>
                 <li className="header__nav-item">
@@ -59,7 +51,7 @@ function FavoritesPage({offers}: FavoritesProps): JSX.Element {
             </Helmet>
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {Object.keys(offerCity).map((city) => (
+              {citiesWithoutReplay.map((city) => (
                 <li key={city} className="favorites__locations-items">
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">
@@ -68,11 +60,11 @@ function FavoritesPage({offers}: FavoritesProps): JSX.Element {
                       </a>
                     </div>
                   </div>
-                  {offers.length ? (
+                  {(offers.length > 0) && (
                     <div className="favorites__places">
-                      <OffersList offers={offers.filter((offer) => offer.isFavorite && offer.city.name === city) } isFavorites isOther={false}/>
+                      <OffersList offers={offers.filter((offer) => offer.isFavorite && offer.city.name === city) } isFavoritesLayout isOfferLayout={false}/>
                     </div>
-                  ) : ''}
+                  )}
                 </li>
               ))}
             </ul>
