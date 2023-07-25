@@ -12,7 +12,7 @@ const ratingList = [
 
 function CommentForm(): JSX.Element {
   const [formData, setFormData] = useState({
-    rating: 1,
+    rating: -1,
     review: ''
   });
 

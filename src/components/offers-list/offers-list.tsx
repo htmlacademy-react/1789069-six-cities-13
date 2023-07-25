@@ -1,6 +1,5 @@
-import { Offers } from '../../types/offer';
+import { Offers, Layout } from '../../types';
 import { PlaceCard } from '../place-card';
-import { Layout } from '../../types/layout';
 
 type OffersListProps = {
   offers: Offers;

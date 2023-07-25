@@ -1,7 +1,6 @@
-import { Offer } from '../../types/offer';
+import { Offer, Layout } from '../../types';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../settings';
-import { Layout } from '../../types/layout';
 
 type PlaceCardProps = {
   offer: Offer;
@@ -10,11 +9,12 @@ type PlaceCardProps = {
 
 function PlaceCard({offer, layout}: PlaceCardProps): JSX.Element {
   const bookmarkClass = 'place-card__bookmark-button';
-  const cardClass = layout === 'favorites' ? 'favorites__card' : 'cities__card';
-  const imageWrapperClass = layout === 'favorites' ? 'favorites__image-wrapper' : 'cities__image-wrapper';
-  const cardInfoClass = layout === 'favorites' ? 'favorites__card-info' : '';
-  const cardImageWidth = layout === 'favorites' ? 150 : 260;
-  const cardImageHeight = layout === 'favorites' ? 110 : 200;
+  const isFavoriteLayout = layout === 'favorites';
+  const cardClass = isFavoriteLayout ? 'favorites__card' : 'cities__card';
+  const imageWrapperClass = isFavoriteLayout ? 'favorites__image-wrapper' : 'cities__image-wrapper';
+  const cardInfoClass = isFavoriteLayout ? 'favorites__card-info' : '';
+  const cardImageWidth = isFavoriteLayout ? 150 : 260;
+  const cardImageHeight = isFavoriteLayout ? 110 : 200;
 
   return (
     <article className={`${cardClass} place-card`}>

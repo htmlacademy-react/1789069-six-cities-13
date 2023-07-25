@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Logo } from '../../components/logo';
 import { Helmet } from 'react-helmet-async';
-import { Offers } from '../../types/offer';
+import { Offers } from '../../types';
 import { OffersList } from '../../components/offers-list';
 import { AppRoute } from '../../settings';
 
@@ -9,8 +9,9 @@ type FavoritesProps = {
   favoriteOffers: Offers;
 }
 
-function FavoritesPage({favoriteOffers}: FavoritesProps): JSX.Element {
-  const cities = [...new Set(favoriteOffers.map((offer) => (offer.city.name)))];
+function FavoritesPage({favoriteOffers: offers}: FavoritesProps): JSX.Element {
+  const cities = [...new Set(offers.map((offer) => (offer.city.name)))];
+  const hasOffers = offers && offers.length > 0;
 
   return (
     <div className="page">
@@ -27,7 +28,7 @@ function FavoritesPage({favoriteOffers}: FavoritesProps): JSX.Element {
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">{favoriteOffers.length}</span>
+                    <span className="header__favorite-count">{offers.length}</span>
                   </li>
                 </Link>
                 <li className="header__nav-item">
@@ -47,7 +48,10 @@ function FavoritesPage({favoriteOffers}: FavoritesProps): JSX.Element {
             <Helmet>
               <title>6 cities. Favorites</title>
             </Helmet>
-            {(favoriteOffers && favoriteOffers.length > 0) ? (
+            {!hasOffers && (
+              <h1>Нет ни одного избранного предложения</h1>
+            )}
+            {hasOffers && (
               <>
                 <h1 className="favorites__title">Saved listing</h1>
                 <ul className="favorites__list">
@@ -61,14 +65,12 @@ function FavoritesPage({favoriteOffers}: FavoritesProps): JSX.Element {
                         </div>
                       </div>
                       <div className="favorites__places">
-                        <OffersList offers={favoriteOffers.filter((offer) => offer.city.name === city) } layout={'favorites'}/>
+                        <OffersList offers={offers.filter((offer) => offer.city.name === city) } layout={'favorites'}/>
                       </div>
                     </li>
                   ))}
                 </ul>
               </>
-            ) : (
-              <h1>Нет ни одного избранного предложения</h1>
             )}
           </section>
         </div>

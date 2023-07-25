@@ -7,7 +7,7 @@ import { FavoritesPage } from '../../pages/favorites';
 import { OfferPage } from '../../pages/offer';
 import { Page404 } from '../../pages/404';
 import { PrivateRoute } from '../private-route';
-import { Offers } from '../../types/offer';
+import { Offers } from '../../types';
 import { ScrollTop } from '../scroll-top';
 
 type AppProps = {

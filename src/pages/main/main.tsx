@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Logo } from '../../components/logo';
 import { Helmet } from 'react-helmet-async';
 import { OffersList } from '../../components/offers-list';
-import { Offers } from '../../types/offer';
+import { Offers } from '../../types';
 import { AppRoute } from '../../settings';
 
 type MainPageProps = {
@@ -11,6 +11,7 @@ type MainPageProps = {
 
 function MainPage({ offers }: MainPageProps) : JSX.Element {
   const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
+  const hasOffers = offers && offers.length > 0;
 
   return (
     <div className="page page--gray page--main">
@@ -102,9 +103,10 @@ function MainPage({ offers }: MainPageProps) : JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              {(offers && offers.length > 0) ? (
+              {hasOffers && (
                 <OffersList offers={offers} layout={'main'}/>
-              ) : (
+              )}
+              {!hasOffers && (
                 <h2>Предложений в этом городе нет</h2>
               )}
             </section>
