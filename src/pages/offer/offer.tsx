@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Logo } from '../../components/logo';
 import { Helmet } from 'react-helmet-async';
 import { CommentForm } from '../../components/comment-form';
-import { Offers } from '../../types/offer';
+import { Offers } from '../../types';
 import { OffersList } from '../../components/offers-list';
 import { AppRoute } from '../../settings';
 
