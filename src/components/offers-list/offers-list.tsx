@@ -1,23 +1,23 @@
 import { Offers } from '../../types/offer';
 import { PlaceCard } from '../place-card';
+import { Layout } from '../../types/layout';
 
 type OffersListProps = {
   offers: Offers;
-  isFavoritesLayout: boolean;
-  isOfferLayout: boolean;
+  layout: Layout;
 }
 
-function OffersList({offers, isFavoritesLayout, isOfferLayout}: OffersListProps): JSX.Element {
+function OffersList({offers, layout}: OffersListProps): JSX.Element {
   let className = '';
 
-  switch(true) {
-    case isFavoritesLayout:
+  switch(layout) {
+    case 'favorites':
       className = 'favorites__places';
       break;
-    case isOfferLayout:
+    case 'other':
       className = 'near-places__list places__list';
       break;
-    default:
+    case 'main':
       className = 'cities__places-list places__list tabs__content';
       break;
   }
@@ -25,7 +25,7 @@ function OffersList({offers, isFavoritesLayout, isOfferLayout}: OffersListProps)
   return (
     <div className={className}>
       {offers.map((offer) => (
-        <PlaceCard key={offer.id} offer={offer} isFavoritesLayout={isFavoritesLayout} isOfferLayout={isOfferLayout}/>
+        <PlaceCard key={offer.id} offer={offer} layout={layout}/>
       ))}
     </div>
   );

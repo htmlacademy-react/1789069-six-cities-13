@@ -6,13 +6,11 @@ import { OffersList } from '../../components/offers-list';
 import { AppRoute } from '../../settings';
 
 type FavoritesProps = {
-  offers: Offers;
+  favoriteOffers: Offers;
 }
 
-function FavoritesPage({offers}: FavoritesProps): JSX.Element {
-  const favoriteOffer = offers.filter((offer) => offer.isFavorite);
-  const cities = favoriteOffer.map((offer) => (offer.city.name));
-  const citiesWithoutReplay = [...new Set(cities)];
+function FavoritesPage({favoriteOffers}: FavoritesProps): JSX.Element {
+  const cities = [...new Set(favoriteOffers.map((offer) => (offer.city.name)))];
 
   return (
     <div className="page">
@@ -29,7 +27,7 @@ function FavoritesPage({offers}: FavoritesProps): JSX.Element {
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">{favoriteOffer.length}</span>
+                    <span className="header__favorite-count">{favoriteOffers.length}</span>
                   </Link>
                 </li>
                 <li className="header__nav-item">
@@ -49,25 +47,29 @@ function FavoritesPage({offers}: FavoritesProps): JSX.Element {
             <Helmet>
               <title>6 cities. Favorites</title>
             </Helmet>
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              {citiesWithoutReplay.map((city) => (
-                <li key={city} className="favorites__locations-items">
-                  <div className="favorites__locations locations locations--current">
-                    <div className="locations__item">
-                      <a className="locations__item-link" href="#">
-                        <span>{city}</span>
-                      </a>
-                    </div>
-                  </div>
-                  {(offers.length > 0) && (
-                    <div className="favorites__places">
-                      <OffersList offers={offers.filter((offer) => offer.isFavorite && offer.city.name === city) } isFavoritesLayout isOfferLayout={false}/>
-                    </div>
-                  )}
-                </li>
-              ))}
-            </ul>
+            {(favoriteOffers && favoriteOffers.length > 0) ? (
+              <>
+                <h1 className="favorites__title">Saved listing</h1>
+                <ul className="favorites__list">
+                  {cities.map((city) => (
+                    <li key={city} className="favorites__locations-items">
+                      <div className="favorites__locations locations locations--current">
+                        <div className="locations__item">
+                          <a className="locations__item-link" href="#">
+                            <span>{city}</span>
+                          </a>
+                        </div>
+                      </div>
+                      <div className="favorites__places">
+                        <OffersList offers={favoriteOffers.filter((offer) => offer.city.name === city) } layout={'favorites'}/>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <h1>Нет ни одного избранного предложения</h1>
+            )}
           </section>
         </div>
       </main>

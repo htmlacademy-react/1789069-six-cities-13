@@ -169,7 +169,7 @@ function OfferPage({offers}: OfferPageProps): JSX.Element {
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <OffersList offers={offers.filter((offer) => offer.id !== currentOffer.id && offer.city.name === currentOffer.city.name)} isFavoritesLayout={false} isOfferLayout />
+              <OffersList offers={offers.filter((offer) => offer.id !== currentOffer.id && offer.city.name === currentOffer.city.name)} layout={'other'} />
             </section>
           </div>
         </main>

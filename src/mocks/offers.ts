@@ -19,7 +19,7 @@ export const offers: Offers = [
       longitude: 4.673877537499948,
       zoom: 8
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: true,
     rating: 4,
     previewImage: 'img/apartment-01.jpg',
@@ -96,7 +96,7 @@ export const offers: Offers = [
       longitude: 4.673877537499948,
       zoom: 8
     },
-    isFavorite: true,
+    isFavorite: false,
     isPremium: false,
     rating: 4,
     previewImage: 'img/apartment-02.jpg',
@@ -122,7 +122,7 @@ export const offers: Offers = [
     type: 'Apartment',
     price: 180,
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
       location: {
         latitude: 52.35514938496378,
         longitude: 4.673877537499948,

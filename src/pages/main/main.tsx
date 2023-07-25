@@ -102,8 +102,10 @@ function MainPage({ offers }: MainPageProps) : JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              {(offers.length > 0) && (
-                <OffersList offers={offers} isFavoritesLayout={false} isOfferLayout={false}/>
+              {(offers && offers.length > 0) ? (
+                <OffersList offers={offers} layout={'main'}/>
+              ) : (
+                <h2>Предложений в этом городе нет</h2>
               )}
             </section>
             <div className="cities__right-section">
