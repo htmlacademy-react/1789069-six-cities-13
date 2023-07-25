@@ -1,4 +1,4 @@
-import { Comments } from '../types/comment';
+import { Comments } from '../types';
 
 export const comments: Comments = [
   {
